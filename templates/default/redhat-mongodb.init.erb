@@ -14,7 +14,7 @@ SYSCONFIG=<%= @sysconfig_file %>
 DAEMON_USER=<%= @user %>
 ENABLE_MONGODB=yes
 
-SUBSYS_LOCK_FILE=/var/lock/subsys/<%= @provides %>
+SUBSYS_LOCK_FILE=<%= @subsys_lockfile %>
 
 if [ -f "$SYSCONFIG" ]; then
     . "$SYSCONFIG"
@@ -103,4 +103,3 @@ case "$1" in
 esac
 
 exit $RETVAL
-

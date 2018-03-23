@@ -30,6 +30,10 @@ build_essential 'build-tools'
 
 config_type = node['mongodb']['is_mongos'] ? 'mongos' : 'mongod'
 
+
+
+subsys_lockfile=default['mongodb']['subsys_lockfile']
+
 config = node['mongodb']['config'][config_type]
 dbconfig_file = node['mongodb']['dbconfig_file'][config_type]
 sysconfig_file = node['mongodb']['sysconfig_file'][config_type]
@@ -82,7 +86,8 @@ template "#{init_file} install" do
   owner 'root'
   mode mode
   variables(
-    provides: 'mongod',
+    provides: config_type,
+    subsys_lockfile: subsys_lockfile,
     dbconfig_file: dbconfig_file,
     sysconfig_file: sysconfig_file,
     ulimit: node['mongodb']['ulimit'],
